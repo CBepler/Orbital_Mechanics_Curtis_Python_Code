@@ -39,7 +39,7 @@ def rv_from_r0v0(R0, V0, t, mu):
     alpha = 2/r0 - v0**2/mu
     
     # Compute the universal anomaly:
-    x, n = kepler_U(t, r0, vr0, alpha, mu)
+    x, n = kepler_U(t, r0, vr0, 1 / alpha, mu)
     
     # Compute the f and g functions:
     f, g = f_and_g(x, t, r0, alpha, mu)
@@ -60,9 +60,9 @@ def rv_from_r0v0(R0, V0, t, mu):
 
 if __name__ == "__main__":
     mu = 398600
-    R0 = [7000, -12124, 0] 
-    V0 = [2.6679, 4.6210, 0]
-    t = 3600
+    R0 = [20000, -105000, -19000] 
+    V0 = [0.9, -3.4, -1.5]
+    t = 7200
     R, V = rv_from_r0v0(R0, V0, t, mu)
     print(f"Final Position R: {R}")
     print(f"Final Velocity V: {V}")

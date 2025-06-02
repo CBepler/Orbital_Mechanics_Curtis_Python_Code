@@ -14,7 +14,7 @@ def kepler_U(dt, ro, vro, a, mu):
     dt   - time since x = 0 (s)
     ro   - radial position (km) when x = 0
     vro  - radial velocity (km/s) when x = 0
-    a    - reciprocal of the semimajor axis (1/km)
+    a    - semimajor axis (1/km)
     z    - auxiliary variable (z = a*x^2)
     C    - value of Stumpff function C(z)
     S    - value of Stumpff function S(z)
@@ -27,6 +27,8 @@ def kepler_U(dt, ro, vro, a, mu):
     x    - universal anomaly
     n    - number of iterations used
     """
+
+    a = 1 / a  # Convert to reciprocal of semimajor axis
     
     # Set an error tolerance and a limit on the number of iterations:
     error = 1.0e-8
@@ -61,10 +63,10 @@ def kepler_U(dt, ro, vro, a, mu):
 
 if __name__ == "__main__":
     mu = 398600
-    dt = 3600 
-    ro = 10000
-    vro = 3.0752
-    a = 1 / -19655
+    dt = 7200 
+    ro = 108563
+    vro = 3.824
+    a = -54754.4
     
     x, n = kepler_U(dt, ro, vro, a, mu)
     print(f"Universal anomaly x: {x:.3f} km^0.5")
