@@ -80,16 +80,22 @@ def coe_from_sv(R, V):
 
     return coe
 
+def rads_to_degrees(radians):
+    """
+    Convert radians to degrees.
+    """
+    return radians * (180.0 / np.pi)
+
 def print_coe(coe):
     """
     Print the classical orbital elements in a formatted way.
     """
     print(f"Angular momentum (h): {coe[0]:.4f} km^2/s")
     print(f"Eccentricity (e): {coe[1]:.4f}")
-    print(f"Right Ascension of Ascending Node (RA): {coe[2]:.4f} rad")
-    print(f"Inclination (incl): {coe[3]:.4f} rad")
-    print(f"Argument of Perigee (w): {coe[4]:.4f} rad")
-    print(f"True Anomaly (TA): {coe[5]:.4f} rad")
+    print(f"Right Ascension of Ascending Node (RA): {coe[2]:.4f} rads ({rads_to_degrees(coe[2]):.4f} degrees)")
+    print(f"Inclination (incl): {coe[3]:.4f} rads ({rads_to_degrees(coe[3]):.4f} degrees)") 
+    print(f"Argument of Perigee (w): {coe[4]:.4f} rads ({rads_to_degrees(coe[4]):.4f} degrees)")
+    print(f"True Anomaly (TA): {coe[5]:.4f} rads ({rads_to_degrees(coe[5]):.4f} degrees)")
     print(f"Semi-major axis (a): {coe[6]:.4f} km")
     if coe[1] < 1:
         mu = 398600.4418 
@@ -106,14 +112,14 @@ if __name__ == '__main__':
     # You'll need to define R and V based on your specific problem.
 
     # Example 1: Circular orbit (from a common orbital mechanics textbook example)
-    R1 = np.array([7000, 0, 0])
-    V1 = np.array([0, 8.4612, 0])
-    coe1 = coe_from_sv(R1, V1)
-    print(f"Example 1 Orbital Elements: {coe1}")
+    # R1 = np.array([7000, 0, 0])
+    # V1 = np.array([0, 8.4612, 0])
+    # coe1 = coe_from_sv(R1, V1)
+    # print(f"Example 1 Orbital Elements: {coe1}")
 
     # Example 2: Elliptical orbit (another common example)
-    R2 = np.array([-6045.0, -3490.0, 2500.0])
-    V2 = np.array([-3.457, 6.618, 2.533])
+    R2 = np.array([6472.7, -7470.8, -2469.8])
+    V2 = np.array([3.9914, 2.7916, -3.2948])
     coe2 = coe_from_sv(R2, V2)
     print_coe(coe2)
 
