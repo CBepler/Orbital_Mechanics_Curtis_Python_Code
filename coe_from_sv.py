@@ -37,7 +37,7 @@ def coe_from_sv(R, V):
     incl = np.arccos(H[2] / h)  # H(3) in MATLAB is H[2] in Python (0-indexed)
 
     # Equation 4.8:
-    N = np.cross(np.array([0, 0, 1]), H)
+    N = np.cross(np.array([0, 0, 1]), H) #Node line vector
     n = np.linalg.norm(N)
 
     # Equation 4.9:
