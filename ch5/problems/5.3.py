@@ -36,15 +36,65 @@ z = 0
 while abs(f(z) / f_prime(z)) > 1e-7:
     z = z - f(z) / f_prime(z)
 
-y = y(z)
+y_val = y(z)
 
-# Calculate f and g
-f = 1 - y/r_0
-g = A * np.sqrt(y/MU)
-gdot = 1 - y/r_1
+# ============================================================
+# Lagrange Coefficients (Curtis Eqs. 5.46, 5.47, 5.48)
+# ============================================================
+# Eq. 5.46: f = 1 - y/r_1
+f_coef = 1 - y_val/r_0
 
-# Calculate the velocity vectors
-v1 = (1 / g) * (r_1 - f * r_0)
-v2 = (1 / g) * (gdot * r_1 - r_0)
+# Eq. 5.47: g = A * sqrt(y/mu)
+g_coef = A * np.sqrt(y_val/MU)
 
-print(z)
+# Eq. 5.48: g_dot = 1 - y/r_2
+gdot = 1 - y_val/r_1
+
+# ============================================================
+# Set up position vectors in the orbital plane
+# Place r1 along x-axis, r2 at angle delta_theta (prograde)
+# ============================================================
+r1_vec = np.array([r_0, 0, 0])
+r2_vec = np.array([r_1 * np.cos(delta_theta), r_1 * np.sin(delta_theta), 0])
+
+# ============================================================
+# Velocity at position 1 (Curtis Eq. 5.28)
+# v1 = (1/g) * (r2 - f*r1)
+# ============================================================
+v1_vec = (1/g_coef) * (r2_vec - f_coef * r1_vec)
+
+# ============================================================
+# Orbital Elements from State Vector (Curtis Chapter 4)
+# ============================================================
+
+# Eq. 4.2: Specific angular momentum h = r x v
+h_vec = np.cross(r1_vec, v1_vec)
+h = np.linalg.norm(h_vec)
+
+# Velocity magnitude
+v1 = np.linalg.norm(v1_vec)
+
+# Eq. 4.10: e = (1/mu)*[(v^2 - mu/r)*r - r*v_r*v]
+# where v_r = (r.v)/r is the radial velocity, so r*v_r = r.v
+v_r = np.dot(r1_vec, v1_vec) / r_0  # radial velocity component
+e_vec = (1/MU) * ((v1**2 - MU/r_0) * r1_vec - r_0 * v_r * v1_vec)
+e = np.linalg.norm(e_vec)
+
+# Eq. 2.71: Perigee radius r_p = h^2 / (mu * (1 + e))
+r_perigee = h**2 / (MU * (1 + e))
+
+# Eq. 2.73: Semi-major axis a = h^2 / (mu * (1 - e^2))
+a = h**2 / (MU * (1 - e**2))
+
+# Perigee altitude
+z_perigee = r_perigee - 6378
+
+# ============================================================
+# Results
+# ============================================================
+print(f"Universal variable z = {z:.6f}")
+print(f"Angular momentum h = {h:.2f} km^2/s")
+print(f"Eccentricity e = {e:.6f}")
+print(f"Semi-major axis a = {a:.2f} km")
+print(f"Perigee radius r_p = {r_perigee:.2f} km")
+print(f"Perigee altitude z_p = {z_perigee:.2f} km")
