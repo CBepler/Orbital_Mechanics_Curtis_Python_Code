@@ -13,9 +13,10 @@ def alg5_4(range, range_rate, azimuth, azimuth_rate, elevation, elevation_rate, 
     #Calculate topocentric declination
     declination = np.arcsin(np.cos(latitude) * np.cos(azimuth) * np.cos(elevation) + np.sin(latitude) * np.sin(elevation))
     #Calculate topocentric right ascension
-    right_ascension = np.arccos((np.cos(latitude) * np.sin(elevation) - np.sin(latitude) * np.cos(elevation) * np.cos(azimuth))/(np.cos(declination)))
+    hour_angle = np.arccos((np.cos(latitude) * np.sin(elevation) - np.sin(latitude) * np.cos(elevation) * np.cos(azimuth))/(np.cos(declination)))
     if azimuth < np.pi:
-        right_ascension = 2 * np.pi - right_ascension
+        hour_angle = 2 * np.pi - hour_angle
+    right_ascension = local_sidereal_time - hour_angle
     #Calculate the direction cosines unit vector
     direction_cosines = np.array([np.cos(right_ascension) * np.cos(declination), np.sin(right_ascension) * np.cos(declination), np.sin(declination)])
     #Calculate the geocentric position vector of the target
