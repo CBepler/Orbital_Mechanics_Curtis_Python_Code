@@ -38,8 +38,10 @@ def gauss_iterative(direction_cosines, observor_positions, times, max_iterations
         # Calculate the radial component of v2
         vr2_mag = np.dot(v2, r2) / r2_mag
         # Solve universal Kepler's equation for chi1 and chi3 at times t1 and t3
-        chi1, _ = kepler_U(times[0], r2_mag, vr2_mag, 1 / alpha, MU)
-        chi3, _ = kepler_U(times[2], r2_mag, vr2_mag, 1 / alpha, MU)
+        tau1 = times[0] - times[1]
+        tau3 = times[2] - times[1]
+        chi1, _ = kepler_U(tau1, r2_mag, vr2_mag, 1 / alpha, MU)
+        chi3, _ = kepler_U(tau3, r2_mag, vr2_mag, 1 / alpha, MU)
         # Calculate lagrange coefficients
         f1 = 1 - (chi1**2 / r2_mag) * stumpC(alpha * chi1**2)
         f3 = 1 - (chi3**2 / r2_mag) * stumpC(alpha * chi3**2)
