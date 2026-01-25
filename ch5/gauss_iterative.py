@@ -1,9 +1,9 @@
 import numpy as np
 
-from gauss import gauss
-from kepler_U import kepler_U
-from stumpC import stumpC
-from stumpS import stumpS
+from ch5.gauss import gauss
+from ch3.kepler_U import kepler_U
+from ch3.stumpC import stumpC
+from ch3.stumpS import stumpS
 
 MU = 398600
 

@@ -1,13 +1,14 @@
 import math
 
-from stumpC import stumpC
-from stumpS import stumpS
+from ch3.stumpC import stumpC
+from ch3.stumpS import stumpS
+
 
 def kepler_U(dt, ro, vro, a, mu):
     """
     This function uses Newton's method to solve the universal
     Kepler equation for the universal anomaly.
-    
+
     Parameters:
     mu   - gravitational parameter (km^3/s^2)
     x    - the universal anomaly (km^0.5)
@@ -20,54 +21,64 @@ def kepler_U(dt, ro, vro, a, mu):
     S    - value of Stumpff function S(z)
     n    - number of iterations for convergence
     nMax - maximum allowable number of iterations
-    
+
     User M-functions required: stumpC, stumpS
-    
+
     Returns:
     x    - universal anomaly
     n    - number of iterations used
     """
 
     a = 1 / a  # Convert to reciprocal of semimajor axis
-    
+
     # Set an error tolerance and a limit on the number of iterations:
     error = 1.0e-8
     nMax = 1000
-    
+
     # Starting value for x:
     x = math.sqrt(mu) * abs(a) * dt
-    
+
     # Iterate on Equation 3.62 until convergence occurs within
     # the error tolerance:
     n = 0
     ratio = 1
-    
+
     while abs(ratio) > error and n <= nMax:
         n = n + 1
         z = a * x**2
         C = stumpC(z)
         S = stumpS(z)
-        F = ro * vro / math.sqrt(mu) * x**2 * C + (1 - a * ro) * x**3 * S + ro * x - math.sqrt(mu) * dt
-        dFdx = ro * vro / math.sqrt(mu) * x * (1 - a * x**2 * S) + (1 - a * ro) * x**2 * C + ro
-        
+        F = (
+            ro * vro / math.sqrt(mu) * x**2 * C
+            + (1 - a * ro) * x**3 * S
+            + ro * x
+            - math.sqrt(mu) * dt
+        )
+        dFdx = (
+            ro * vro / math.sqrt(mu) * x * (1 - a * x**2 * S)
+            + (1 - a * ro) * x**2 * C
+            + ro
+        )
+
         ratio = F / dFdx
         x = x - ratio
-    
+
     # Deliver a value for x, but report that nMax was reached:
     if n > nMax:
-        print(f'\n **No. iterations of Kepler\'s equation')
-        print(f' = {n}')
-        print(f'\n   F/dFdx = {ratio}\n')
-    
+        print(f"\n **No. iterations of Kepler's equation")
+        print(f" = {n}")
+        print(f"\n   F/dFdx = {ratio}\n")
+
     return x, n
+
 
 if __name__ == "__main__":
     mu = 398600
-    dt = 7200 
+    dt = 7200
     ro = 108563
     vro = 3.824
     a = -54754.4
-    
+
     x, n = kepler_U(dt, ro, vro, a, mu)
     print(f"Universal anomaly x: {x:.3f} km^0.5")
     print(f"Number of iterations used: {n}")
