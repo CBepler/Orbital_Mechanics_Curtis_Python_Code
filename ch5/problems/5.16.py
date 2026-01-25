@@ -11,6 +11,7 @@ from ch5.helpers import (
     get_direction_cosines_topocentric,
 )
 from ch5.gauss import gauss
+from ch5.gauss_iterative import gauss_iterative
 
 if __name__ == "__main__":
     altitude = 0
@@ -26,6 +27,12 @@ if __name__ == "__main__":
         map(get_direction_cosines_topocentric, topocentric_ra, topocentric_dec)
     )
     r2, v2 = gauss(direction_cosines, observer_position, times)
+    print(f"r2 = {r2}")
+    print(f"v2 = {v2}")
+    print(f"r2_mag = {np.linalg.norm(r2)}")
+    print(f"v2_mag = {np.linalg.norm(v2)}")
+
+    r2, v2 = gauss_iterative(direction_cosines, observer_position, times)
     print(f"r2 = {r2}")
     print(f"v2 = {v2}")
     print(f"r2_mag = {np.linalg.norm(r2)}")
