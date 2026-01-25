@@ -36,3 +36,22 @@ def get_direction_cosines_horizon(azimuth, elevation):
             np.sin(elevation),
         ]
     )
+
+
+def topocentric_horizon_to_geocentric_equatorial(vec, local_sidereal_time, latitude):
+    transformation_matrix = np.array(
+        [
+            [
+                -np.sin(local_sidereal_time),
+                -np.sin(latitude) * np.cos(local_sidereal_time),
+                np.cos(latitude) * np.cos(local_sidereal_time),
+            ],
+            [
+                np.cos(local_sidereal_time),
+                -np.sin(latitude) * np.sin(local_sidereal_time),
+                np.cos(latitude) * np.sin(local_sidereal_time),
+            ],
+            [0, np.cos(latitude), np.sin(latitude)],
+        ]
+    )
+    return transformation_matrix @ vec
