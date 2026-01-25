@@ -19,9 +19,9 @@ if __name__ == "__main__":
     local_sidereal_time = map(degrees_to_radians, [0, 0.250684, 0.501369])
     topocentric_ra = map(degrees_to_radians, [0, 65.9279, 79.8500])
     topocentric_dec = map(degrees_to_radians, [51.5110, 27.9911, 14.6609])
-    observer_position = list(
-        map(get_observer_position, latitude, local_sidereal_time, altitude)
-    )
+    observer_position = [
+        get_observer_position(latitude, lst, altitude) for lst in local_sidereal_time
+    ]
     direction_cosines = list(
         map(get_direction_cosines_topocentric, topocentric_ra, topocentric_dec)
     )

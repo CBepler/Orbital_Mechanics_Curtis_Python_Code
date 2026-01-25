@@ -46,7 +46,7 @@ def gauss(direction_cosines, observor_positions, times):
     rho_2 = A + (MU * B / (roots**3))
     rho_1 = (1 / D0) * (
         (
-            6 * (D31 * (tau_1 / tau_3) + D21 * (tau / tau_3))(roots**3)
+            6 * (D31 * (tau_1 / tau_3) + D21 * (tau / tau_3)) * (roots**3)
             + MU * D31 * (tau**2 - tau_1**2) * (tau_1 / tau_3)
         )
         / (6 * roots**3 + MU * (tau**2 - tau_3**2))
@@ -54,7 +54,7 @@ def gauss(direction_cosines, observor_positions, times):
     )
     rho_3 = (1 / D0) * (
         (
-            6 * (D13 * (tau_3 / tau_1) - D23 * (tau / tau_1))(roots**3)
+            6 * (D13 * (tau_3 / tau_1) - D23 * (tau / tau_1)) * (roots**3)
             + MU * D13 * (tau**2 - tau_3**2) * (tau_3 / tau_1)
         )
         / (6 * roots**3 + MU * (tau**2 - tau_3**2))
