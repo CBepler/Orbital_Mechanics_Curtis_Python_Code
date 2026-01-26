@@ -69,3 +69,93 @@ if __name__ == "__main__":
     print(f"v2 = {v2}")
     print(f"r2_mag = {np.linalg.norm(r2)}")
     print(f"v2_mag = {np.linalg.norm(v2)}")
+
+    # 5.22
+    times = [0, 60, 120]
+    observer_position = np.array(
+        [
+            [-1825.96, 3583.66, 4933.54],
+            [-1841.63, 3575.63, 4933.54],
+            [-1857.25, 3567.54, 4933.54],
+        ]
+    )
+    direction_cosines = np.array(
+        [
+            [-0.301687, 0.200673, 0.932049],
+            [-0.793090, -0.210324, 0.571640],
+            [-0.873085, -0.362969, 0.325539],
+        ]
+    )
+    r2, v2 = gauss(direction_cosines, observer_position, times)
+    print("========== 5.22 ==========")
+    print(f"r2 = {r2}")
+    print(f"v2 = {v2}")
+    print(f"r2_mag = {np.linalg.norm(r2)}")
+    print(f"v2_mag = {np.linalg.norm(v2)}")
+
+    # 5.23
+    r2, v2 = gauss_iterative(direction_cosines, observer_position, times)
+    print("========== 5.23 ==========")
+    print(f"r2 = {r2}")
+    print(f"v2 = {v2}")
+    print(f"r2_mag = {np.linalg.norm(r2)}")
+    print(f"v2_mag = {np.linalg.norm(v2)}")
+
+    # 5.25
+    altitude = 0.5
+    latitude = degrees_to_radians(60)
+    times = [0, 300, 600]
+    local_sidereal_time = map(degrees_to_radians, [150, 151.253, 152.507])
+    topocentric_ra = map(degrees_to_radians, [157.783, 159.221, 160.526])
+    topocentric_dec = map(degrees_to_radians, [24.2403, 27.2993, 29.8982])
+    observer_position = [
+        get_observer_position(latitude, lst, altitude) for lst in local_sidereal_time
+    ]
+    direction_cosines = list(
+        map(get_direction_cosines_topocentric, topocentric_ra, topocentric_dec)
+    )
+    r2, v2 = gauss(direction_cosines, observer_position, times)
+    print("========== 5.25 ==========")
+    print(f"r2 = {r2}")
+    print(f"v2 = {v2}")
+    print(f"r2_mag = {np.linalg.norm(r2)}")
+    print(f"v2_mag = {np.linalg.norm(v2)}")
+
+    # 5.26
+    r2, v2 = gauss_iterative(direction_cosines, observer_position, times)
+    print("========== 5.26 ==========")
+    print(f"r2 = {r2}")
+    print(f"v2 = {v2}")
+    print(f"r2_mag = {np.linalg.norm(r2)}")
+    print(f"v2_mag = {np.linalg.norm(v2)}")
+
+    # 5.28
+    times = [0, 300, 600]
+    observer_position = np.array(
+        [
+            [5582.84, 0, 3073.90],
+            [5581.50, 122.122, 3073.90],
+            [5577.50, 244.186, 3073.90],
+        ]
+    )
+    direction_cosines = np.array(
+        [
+            [0.846428, 0, 0.532504],
+            [0.749290, 0.463023, 0.473470],
+            [0.529447, 0.777163, 0.340152],
+        ]
+    )
+    r2, v2 = gauss(direction_cosines, observer_position, times)
+    print("========== 5.28 ==========")
+    print(f"r2 = {r2}")
+    print(f"v2 = {v2}")
+    print(f"r2_mag = {np.linalg.norm(r2)}")
+    print(f"v2_mag = {np.linalg.norm(v2)}")
+
+    # 5.29
+    r2, v2 = gauss_iterative(direction_cosines, observer_position, times)
+    print("========== 5.29 ==========")
+    print(f"r2 = {r2}")
+    print(f"v2 = {v2}")
+    print(f"r2_mag = {np.linalg.norm(r2)}")
+    print(f"v2_mag = {np.linalg.norm(v2)}")
