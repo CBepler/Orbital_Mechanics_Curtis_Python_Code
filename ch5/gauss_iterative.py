@@ -60,8 +60,12 @@ def gauss_iterative(direction_cosines, observor_positions, times, max_iterations
         rho3 = (1 / D0) * (-(c1 / c3) * D13 + (D23 / c3) - D33)
         # Calculate position vectors
         r1 = observor_positions[0] + rho1 * direction_cosines[0]
-        r2 = observor_positions[1] + rho2 * direction_cosines[1]
+        r2_new = observor_positions[1] + rho2 * direction_cosines[1]
         r3 = observor_positions[2] + rho3 * direction_cosines[2]
+
+        # Damping to prevent divergence
+        r2 = r2 + 0.5 * (r2_new - r2)
+
         # Calculate velocity vector
         v2 = (1 / (f1 * g3 - f3 * g1)) * (-f3 * r1 + f1 * r3)
     return r2, v2
