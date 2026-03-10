@@ -1,9 +1,10 @@
 import numpy as np
 
-MU = 132712000000
+MU = 398600
 
 
 def hohmann_transfer(r1, r2):
+    # r1 and r2 are in km
     # Calculates the time (s) and the delta-v (m/s) for a hohmann transfer
     # orbit from a circular orbit to another circular orbit.
     v1 = np.sqrt(MU / r1)
@@ -30,8 +31,8 @@ def hohmann_transfer(r1, r2):
 
 
 if __name__ == "__main__":
-    r1 = 149600000
-    r2 = 227900000
+    r1 = 6871
+    r2 = 7371
     delta_v, T = hohmann_transfer(r1, r2)
     print(f"Delta v: {delta_v:.2f} km/s")
     print(f"Transfer time: {T:.2f} s")
