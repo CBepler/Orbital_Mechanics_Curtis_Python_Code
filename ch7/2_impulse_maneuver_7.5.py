@@ -15,6 +15,22 @@ def get_vv(n, t):
     return np.array([[np.cos(n * t), 2 * np.sin(n * t), 0], [-2 * np.sin(n * t), 4 * np.cos(n * t) - 3, 0], [0, 0, np.cos(n * t)]])
 
 def delta_v(r_a, delta_r_o, delta_v_o_minus, t):
+    # Two-impulse rendezvous via the Clohessy-Wiltshire equations.
+    # Computes the chaser's required impulses to drive its relative
+    # position to zero (rendezvous with the target) over time t.
+    #
+    # Inputs:
+    #   r_a             - radius of the target's circular orbit (km)
+    #   delta_r_o       - initial relative position of chaser in
+    #                     target LVLH frame [x, y, z] (km)
+    #   delta_v_o_minus - chaser's relative velocity just before the
+    #                     first impulse [x, y, z] (km/s)
+    #   t               - transfer time from first to second impulse (s)
+    #
+    # Returns:
+    #   (delta_v_0, delta_v_f) - impulse vectors at start and end (km/s)
+    #     delta_v_0 = (v_0+) - (v_0-)  applied at t = 0
+    #     delta_v_f = (v_f+) - (v_f-)  applied at t = t, with v_f+ = 0
     T = ((2 * np.pi) / np.sqrt(MU)) * (r_a ** (3/2))
     n = (2 * np.pi) / T
     rr = get_rr(n, t)
