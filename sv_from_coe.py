@@ -91,26 +91,10 @@ def sv_from_coe(coe):
     return r, v
 
 if __name__ == '__main__':
-    # Example usage (replace with your actual coe list)
-    # This is just a placeholder example for demonstration.
-    # You'll need to define 'coe' based on your specific problem.
-
     # Example 1: Circular orbit (coe from a common orbital mechanics textbook example)
-    # h = 53344.0, e = 0, RA = 0, incl = 0, w = 0, TA = 0
-    coe1 = [53344.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    # h, e, RA, incl, w, TA
+    coe1 = [51442, 0.0026, np.deg2rad(40), np.deg2rad(30.1), np.deg2rad(60), np.deg2rad(40)]
     r1, v1 = sv_from_coe(coe1)
     print(f"Example 1 Position Vector (r): {r1}")
     print(f"Example 1 Velocity Vector (v): {v1}")
     print("-" * 30)
-
-    # Example 2: Elliptical orbit (coe from another common example)
-    # This example assumes arbitrary valid orbital elements for demonstration.
-    # h = 80000, e = 1.4, RA = np.deg2rad(40), incl = np.deg2rad(30), w = np.deg2rad(60), TA = np.deg2rad(30)
-    coe2 = [80000.0, 1.4, np.deg2rad(40), np.deg2rad(30), np.deg2rad(60), np.deg2rad(30)]
-    r2, v2 = sv_from_coe(coe2)
-    print(f"Example 2 Position Vector (r): {r2}")
-    print(f"Example 2 Velocity Vector (v): {v2}")
-    print("-" * 30)
-
-    # Note: The output values will be in the units specified in the comments
-    # (distances in km, velocities in km/s).
