@@ -1,6 +1,6 @@
 import numpy as np
 
-def coe_from_sv(R, V):
+def coe_from_sv(R, V, mu=398600.4418):
     """
     This function computes the classical orbital elements (coe)
     from the state vector (R,V) using Algorithm 4.1.
@@ -20,8 +20,6 @@ def coe_from_sv(R, V):
               a - semimajor axis (km)
     """
 
-    # global mu  # In Python, we pass constants or define them at a module level
-    mu = 398600.4418  # gravitational parameter (km^3/s^2)
     eps = 1.0e-10  # a small number below which the eccentricity is considered to be zero
     pi = np.pi  # 3.1415926...
 

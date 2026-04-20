@@ -11,7 +11,7 @@ from ch3.stumpS import stumpS as c3
 
 MU = 398600
 
-def lambert(r1, r2, delta_t):
+def lambert(r1, r2, delta_t, mu=MU):
     # Lambert's method assuming a prograde orbit
 
     r1_mag = np.linalg.norm(r1)
@@ -31,7 +31,7 @@ def lambert(r1, r2, delta_t):
     z = 0
 
     y = lambda z: r1_mag + r2_mag + A * ((z * c3(z) - 1) / np.sqrt(c2(z)))
-    f = lambda z: (y(z) / c2(z))**(3/2) * c3(z) + A * np.sqrt(y(z)) - np.sqrt(MU) * delta_t
+    f = lambda z: (y(z) / c2(z))**(3/2) * c3(z) + A * np.sqrt(y(z)) - np.sqrt(mu) * delta_t
 
     def f_prime(z):
         if z != 0:
@@ -47,7 +47,7 @@ def lambert(r1, r2, delta_t):
 
     # Calculate f and g
     f_coef = 1 - y_val/r1_mag
-    g_coef = A * np.sqrt(y_val/MU)
+    g_coef = A * np.sqrt(y_val/mu)
     gdot = 1 - y_val/r2_mag
 
     # Calculate the velocity vectors
