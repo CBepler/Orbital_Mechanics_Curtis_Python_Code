@@ -18,68 +18,21 @@ Units:
 """
 
 import math
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 import numpy as np
+from tables import MU_SUN, AU, PLANET_NAMES, TABLE_8_1, TABLE_8_1_RATES
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Constants
+# Julian day numbers for the valid date range of Table 8.1 (1800–2050)
 # ─────────────────────────────────────────────────────────────────────────────
-MU_SUN = 1.327124e11   # km^3/s^2  (gravitational parameter of the Sun)
-AU     = 149597871.0   # km        (1 astronomical unit)
+JD_1800 = 2378496.5
+JD_2050 = 2469807.5
 
-# Julian day numbers corresponding to the valid date range for Table 8.1:
-#   1 Jan 1800  →  JD 2378497.5   (using J0 formula)
-#   31 Dec 2050 →  JD 2469807.5
-# We use the J0 formula (Eq. 5.48) to compute these boundaries.
-JD_1800 = 2378496.5   # JD at 0h UT on 1 Jan 1800
-JD_2050 = 2469807.5   # JD at 0h UT on 31 Dec 2050  (approx end of 2050)
-
-# Planet identifiers
-PLANET_NAMES = {
-    1: "Mercury",
-    2: "Venus",
-    3: "Earth",
-    4: "Mars",
-    5: "Jupiter",
-    6: "Saturn",
-    7: "Uranus",
-    8: "Neptune",
-    9: "Pluto",
-}
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Table 8.1  —  J2000 orbital elements and centennial rates
-#
-# Columns: [a (AU), e, i (deg), Omega (deg), omega_hat (deg), L (deg)]
-# Row order: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto
-# ─────────────────────────────────────────────────────────────────────────────
-J2000_ELEMENTS = np.array([
-    # a            e            i         Omega       omega_hat     L
-    [0.38709893,  0.20563069,  7.00487,   48.33167,   77.45645,  252.25084],  # Mercury
-    [0.72333199,  0.00677323,  3.39471,   76.68069,  131.53298,  181.97973],  # Venus
-    [1.00000011,  0.01671022,  0.00005,  -11.26064,  102.94719,  100.46435],  # Earth
-    [1.52366231,  0.09341233,  1.85061,   49.57854,  336.04084,  355.45332],  # Mars
-    [5.20336301,  0.04839266,  1.30530,  100.55615,   14.75385,   34.40438],  # Jupiter
-    [9.53707032,  0.05415060,  2.48446,  113.71504,   92.43194,   49.94432],  # Saturn
-    [19.19126393, 0.04716771,  0.76986,   74.22988,  170.96424,  313.23218],  # Uranus
-    [30.06896348, 0.00858587,  1.76917,  131.72169,   44.97135,  304.88003],  # Neptune
-    [39.48168677, 0.24880766, 17.14175,  110.30347,  224.06676,  238.92881],  # Pluto
-])
-
-# Centennial rates:
-# Columns: [a_dot (AU/Cy), e_dot (1/Cy), i_dot ("/Cy), Omega_dot ("/Cy),
-#           omega_hat_dot ("/Cy), L_dot ("/Cy)]
-CENT_RATES = np.array([
-    # a_dot        e_dot       i_dot      Omega_dot   ohat_dot    L_dot
-    [ 0.00000066,  0.00002527,  -23.51,   -446.30,    573.57,  538101628.29],  # Mercury
-    [ 0.00000092, -0.00004938,   -2.86,   -996.89,   -108.80,  210664136.06],  # Venus
-    [-0.00000005, -0.00003804,  -46.94, -18228.25,   1198.28,  129597740.63],  # Earth
-    [-0.00007221,  0.00011902,  -25.47,  -1020.19,   1560.78,   68905103.78],  # Mars
-    [ 0.00060737, -0.00012880,   -4.15,   1217.17,    839.93,   10925078.35],  # Jupiter
-    [-0.00301530, -0.00036762,    6.11,  -1591.05,  -1948.89,    4401052.95],  # Saturn
-    [ 0.00152025, -0.00019150,   -2.09,  -1681.40,   1312.56,    1542547.79],  # Uranus
-    [-0.00125196,  0.00002514,   -3.64,   -151.25,   -844.43,     786449.21],  # Neptune
-    [-0.00076912,  0.00006465,   11.07,    -37.33,   -132.25,     522747.90],  # Pluto
-])
+J2000_ELEMENTS = TABLE_8_1
+CENT_RATES     = TABLE_8_1_RATES
 
 
 # ─────────────────────────────────────────────────────────────────────────────
