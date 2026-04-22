@@ -23,6 +23,10 @@ def julian_date(year, month, day, hour, minute, second):
     j_d = j_0 + ut / 24
     return j_d
 
+def julian_century(julian_day):
+    return (julian_day - 2451545) / 36525
+
 if __name__ == '__main__':
-    print(local_sidereal_time(2026, 1, 23, 12, 0, 0, 75.47))
-    #print(julian_date(2004, 3, 2, 12, 0, 0))
+    #print(local_sidereal_time(2026, 1, 23, 12, 0, 0, 75.47))
+    #print(julian_date(2005, 12, 31, 23, 59, 59))
+    print(julian_century(2453736.5))
