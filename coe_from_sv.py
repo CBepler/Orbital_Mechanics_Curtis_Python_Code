@@ -105,21 +105,7 @@ def print_coe(coe):
         print(f"Days = {T/86400:.4f}")
 
 if __name__ == '__main__':
-    # Example usage (replace with your actual R and V vectors)
-    # This is just a placeholder example for demonstration.
-    # You'll need to define R and V based on your specific problem.
-
-    # Example 1: Circular orbit (from a common orbital mechanics textbook example)
-    # R1 = np.array([7000, 0, 0])
-    # V1 = np.array([0, 8.4612, 0])
-    # coe1 = coe_from_sv(R1, V1)
-    # print(f"Example 1 Orbital Elements: {coe1}")
-
-    # Example 2: Elliptical orbit (another common example)
-    R2 = np.array([6472.7, -7470.8, -2469.8])
-    V2 = np.array([3.9914, 2.7916, -3.2948])
-    coe2 = coe_from_sv(R2, V2)
+    R2 = np.array([0, 778.6 * (10 ** 6), 0])
+    V2 = np.array([-17.304, 3.7148, 0])
+    coe2 = coe_from_sv(R2, V2, mu=132712000000)
     print_coe(coe2)
-
-    # Note: The output values will be in the units specified in the comments
-    # (e.g., angles in radians, distances in km).
