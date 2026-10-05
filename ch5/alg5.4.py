@@ -16,6 +16,24 @@ def alg5_4(
     latitude,
     altitude,
 ):
+    """
+    This function computes the state vector (r,v) from the
+    observer's measurements of range, range rate, azimuth, azimuth rate,
+    elevation, and elevation rate, along with the observer's local sidereal time,
+    latitude, and altitude.
+
+    Args:
+        range (float): Range to the target (km)
+        range_rate (float): Range rate to the target (km/s)
+        azimuth (float): Azimuth angle (rad)
+        azimuth_rate (float): Azimuth rate (rad/s)
+        elevation (float): Elevation angle (rad)
+        elevation_rate (float): Elevation rate (rad/s)
+        local_sidereal_time (float): Local sidereal time of the observer (rad)
+        latitude (float): Geodetic Latitude of the observer (rad)
+        altitude (float): Altitude of the observer (km)
+    """
+
     # Produces state vector from angles and range measurements
     # Calculate Geocentric position vector of the observer
     R = get_observer_position(latitude, local_sidereal_time, altitude)

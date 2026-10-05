@@ -6,6 +6,7 @@ ANGULAR_VELOCITY_EARTH = 7.292115e-5
 
 
 def get_observer_position(latitude, local_sidereal_time, altitude):
+    """Calculates the geocentric position vector of the observer given latitude, local sidereal time, and altitude."""
     factor_1 = (
         R_E
         / (np.sqrt(1 - ((2 * FLATTENING) - (FLATTENING**2)) * np.sin(latitude) ** 2))
