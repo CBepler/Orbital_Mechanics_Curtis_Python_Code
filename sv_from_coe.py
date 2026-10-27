@@ -69,7 +69,7 @@ def sv_from_coe(coe):
     # Equation 4.44: Q_PX - Matrix of the transformation from perifocal to
     # geocentric equatorial frame. In MATLAB, matrix multiplication is `*`
     # For NumPy, use `@` for matrix multiplication or `np.dot()`.
-    Q_PX = R3_W.T @ R1_i @ R3_w.T
+    Q_PX = R3_W.T @ R1_i.T @ R3_w.T
 
     # Equations 4.46 (r and v are column vectors):
     # In MATLAB, `Q_PX*rp` and `Q_PX*vp` perform matrix-vector multiplication.
@@ -84,9 +84,6 @@ def sv_from_coe(coe):
     # vectors, transposing would be needed. Since the result of Q_PX @ rp
     # will be a 1D array, no explicit transpose is needed for row vector representation
     # unless a specific 2D (1x3) shape is required. We'll return them as 1D arrays.
-
-    r[2] = -r[2]
-    v[2] = -v[2]
 
     return r, v
 
