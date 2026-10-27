@@ -57,7 +57,7 @@ def gauss(direction_cosines, observor_positions, times):
             6 * (D13 * (tau_3 / tau_1) - D23 * (tau / tau_1)) * (roots**3)
             + MU * D13 * (tau**2 - tau_3**2) * (tau_3 / tau_1)
         )
-        / (6 * roots**3 + MU * (tau**2 - tau_3**2))
+        / (6 * roots**3 + MU * (tau**2 - tau_1**2))
         - D33
     )
     # Calculate position vectors
